@@ -1,11 +1,9 @@
 #!/usr/bin/env node
-//http://Merkle.Group
-//info@merkle.gorup
-//-Scott Lindh
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 //RUN on a unique account made just for this bot.
 //You can run many accounts/bots on many different markets.
 //Use a new account/API key for each instance of Bot.
+
 // Sells just under current market order
 
 /*
@@ -30,14 +28,9 @@
 */
 // Insure you have enough in your account to cover Bot.
 
-var graviex = require("graviex");
+var graviex = require("./../graviex-js/graviex.js");
 const chalkAnimation = require('chalk-animation');
 var program = require('commander');
-
-
-//var market = "onzbtc"
-//var increase = 0.000000001;
-//var volume = 100;
 
 program
   .version('0.1.0')
@@ -49,7 +42,7 @@ program
   .option('-a, --accesskey <data>', 'Access KEY for API')
   .option('-s, --secretkey <data>', 'Secret KEY for API')
   .option('-s, --looptime <n>', 'time for break in seconds ie: 60', parseInt)
-  
+
   .parse(process.argv);
 
 
@@ -85,7 +78,7 @@ if(program.secretkey){
                     }else{
                         vol = program.volume;
                         //DUMPER NOT ALL
-                        chalkAnimation.pulse("[http://Merkle.Group | Graivex Dumper | info@merkle.group]");
+                        chalkAnimation.pulse("MUCH KING DINGO SUCH WILD DOGE - https://dingocoin.org");
                         DUMPIT(program.coin + program.market, program.increase, vol);
                     }
                     
@@ -122,7 +115,7 @@ function DUMPIT(market, increase, volume){
                 vol = parseInt(balance.balance)
                 console.log("[SYMBOL]: " + market);
                 //DUMPER ALL
-                chalkAnimation.pulse("[http://Merkle.Group | Graivex Dumper | info@merkle.group]");
+                chalkAnimation.pulse("[MUCH KING DINGO SUCH WILD DOGE] - [https://dingocoin.org]");
                 var ani = chalkAnimation.rainbow('Graviex Dumping '+ volume + " " + market + '...');
                 mainDumpLoop(market, increase, balance.balance);
                 ani.start(); // Animation resumes
@@ -217,14 +210,14 @@ function mainDumpLoop(theMarket, increase, volume){
 			
 							if(!oursSell){
                                 console.log("Orders live are not ours, making new orders...");
-                                clearOrdersForMarket("onzbtc", function(res){
+                                clearOrdersForMarket(program.coin+program.market, function(res){
                                     if(!res.error){
                                         console.log("[Removing Old Orders]: Success == " + res.success);
                                         //Dumping
                                         console.log("Sell Price: " + sellPrice);
                                         //sell
                                         console.log("[ORDER LOG] " + theMarket + " SELL Volume: " + volume + " sellPrice: " + selling);
-                                        graviex.createOrder(theMarket, "sell", volume, sellPrice, function(res2){
+                                        graviex.createOrder(theMarket, "sell", program.volume, sellPrice, function(res2){
                                             if(!res.error){
                                                 console.log(res2.id + "|" + res2.state + "|" + res2.side);									
                                             }else{
